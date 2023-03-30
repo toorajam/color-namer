@@ -1,4 +1,4 @@
-package com.github.toorajam.rgbcolornamer;
+package io.github.toorajam.rgbcolornamer;
 
 import java.util.Objects;
 
