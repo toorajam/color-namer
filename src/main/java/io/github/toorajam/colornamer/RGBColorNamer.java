@@ -1,4 +1,4 @@
-package io.github.toorajam.rgbcolornamer;
+package io.github.toorajam.colornamer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,6 +6,17 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Properties;
 
+/**
+ * A utility class for converting rgb color code to its name.
+ * <br>
+ * <br>
+ * sample:
+ * <pre>
+ * RGBColorNamer.getColorName("#11AA55");                   // seagreen
+ * RGBColorNamer.getColorName("#CCC");                      // lightgray
+ * RGBColorNamer.getColorName(new RGBColor(71, 105, 49);    // darkolivegreen
+ * </pre>
+ */
 public class RGBColorNamer {
     private static final HashMap<RGBColor, String> KNOWN_COLORS_MAP;
 
@@ -52,9 +63,9 @@ public class RGBColorNamer {
     /**
      * Find name of given rgb color. It is using super simple vectorization.
      *
-     * @param red   The red part of the input color. <pre>0 <= red < 256</pre>
-     * @param green The green part of the input color. <pre>0 <= red < 256</pre>
-     * @param blue  The blue part of the input color. <pre>0 <= red < 256</pre>
+     * @param red   A positive integer less than 256 represent red component of the input color
+     * @param green A positive integer less than 256 represent green component of the input color
+     * @param blue  A positive integer less than 256 represent blue component of the input color
      * @return Name of the rgb color. e.g. khaki
      * @throws IllegalArgumentException if the specified {@code colorHex} format is invalid or not supported.
      */
@@ -74,19 +85,19 @@ public class RGBColorNamer {
      * @return Name of the rgb color. e.g. khaki
      */
     public static String getColorName(RGBColor inputColor) {
-        RGBColor nearestColor = new RGBColor("#ffffff");
-        double nearestColorDistance = Double.MAX_VALUE;
+        RGBColor closestColor = new RGBColor("#ffffff");
+        double closestColorDistance = Double.MAX_VALUE;
 
-        // find the nearest color
+        // find the closest color
         for (RGBColor color : KNOWN_COLORS_MAP.keySet()) {
             double distance = inputColor.distance(color);
-            if (distance < nearestColorDistance) {
-                nearestColor = color;
-                nearestColorDistance = distance;
+            if (distance < closestColorDistance) {
+                closestColor = color;
+                closestColorDistance = distance;
             }
         }
 
-        // return name of the nearest color
-        return KNOWN_COLORS_MAP.get(nearestColor);
+        // return name of the closest color
+        return KNOWN_COLORS_MAP.get(closestColor);
     }
 }

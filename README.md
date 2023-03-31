@@ -1,4 +1,4 @@
-# rgb-color-namer
+# color-namer
 A translator for RGB colors to their names written in Java. It is based on super-simple vectorization.
 
 ## How to use?
